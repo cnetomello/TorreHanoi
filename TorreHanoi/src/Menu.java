@@ -1,45 +1,40 @@
+import java.util.Stack;
 import java.util.Scanner;
 
 public class Menu {
-    private Pilha<Integer> pilha1;
-    private Pilha<Integer> pilha2;
-    private Pilha<Integer> pilha3;
-
-    public Menu(Pilha<Integer> pilha1, Pilha<Integer> pilha2, Pilha<Integer> pilha3) {
-        this.pilha1 = pilha1;
-        this.pilha2 = pilha2;
-        this.pilha3 = pilha3;
+    public void exibirOpcoes() {
+        System.out.println("\nOpções:");
+        System.out.println("0 - Sair do jogo");
+        System.out.println("1 - Movimentar");
+        System.out.println("2 - Solução automática");
+        System.out.print("Escolha uma opção: ");
     }
 
-    public void executar() {
+    public void movimentar(Pilha source, Pilha destination, Pilha aux, char order) {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite a pilha de origem (1, 2, ou 3): ");
+        int sourceStack = scanner.nextInt();
+        System.out.print("Digite a pilha de destino (1, 2, ou 3): ");
+        int destinationStack = scanner.nextInt();
 
-        while(true) {
-            while(true) {
-                System.out.println("\nEstado das pilhas:");
-                System.out.println("Pilha1: " + String.valueOf(this.pilha1));
-                System.out.println("Pilha2: " + String.valueOf(this.pilha2));
-                System.out.println("Pilha3: " + String.valueOf(this.pilha3));
-                System.out.println("\nMenu de Opções:");
-                System.out.println("0 - Sair do jogo");
-                System.out.println("1 - Movimentar");
-                int escolha = scanner.nextInt();
-                switch (escolha) {
-                    case 0:
-                        System.out.println("Obrigado por jogar!");
-                        scanner.close();
-                        System.exit(0);
-                        break;
-                    case 1:
-                        this.movimentar();
-                        break;
-                    default:
-                        System.out.println("Opção inválida. Tente novamente.");
-                }
-            }
+        if (sourceStack >= 1 && sourceStack <= 3 && destinationStack >= 1 && destinationStack <= 3) {
+            source.moverNumeroPara(destination, order);
+        } else {
+            System.out.println("Pilhas inválidas. Tente novamente.");
         }
     }
 
-    private void movimentar() {
+    public void solucaoAutomatica(Pilha source, Pilha aux, Pilha target, char order) {
+        if (order == 'c') {
+            source.resolverTorreHanoi(source.getTamanho(), source, aux, target);
+        } else if (order == 'd') {
+            target.resolverTorreHanoi(target.getTamanho(), target, aux, source);
+        }
+    }
+
+    public void exibirPilhas(Pilha stack1, Pilha stack2, Pilha stack3) {
+        System.out.println("Pilha 1: " + stack1);
+        System.out.println("Pilha 2: " + stack2);
+        System.out.println("Pilha 3: " + stack3);
     }
 }

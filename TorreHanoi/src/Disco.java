@@ -6,10 +6,11 @@ public class Disco {
     }
 
     public int getTamanho() {
-        return this.tamanho;
+        return tamanho;
     }
 
+    @Override
     public String toString() {
-        return "Disco de tamanho " + this.tamanho;
+        return String.valueOf(tamanho);
     }
 }
